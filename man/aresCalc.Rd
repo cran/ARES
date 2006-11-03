@@ -74,9 +74,16 @@ aresPlot(b198, T="1998, B1")
 b100 <- aresCalc(bb100,bootsize=4,maxsize=60)
 aresPlot(b100, T="2000, B1")
 
+# display the results of aresCalc as a table in the R console
+b100
+
+# write the results of aresCalc to a csv-file
+write.csv(b100, file = "b100.csv")
+
 # note!!! these examples use a very small bootstrap size (for speed of display).
 #  A more realistic size is bootsize=200.
-
+
+
 }
 \keyword{ models }
 

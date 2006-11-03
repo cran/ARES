@@ -13,22 +13,21 @@ Allelic richness estimation, with extrapolation beyond the sample size
   individual, and gives an accumulation curve (mean with 95\% confidence bounds) 
   back. The total number of individuals present in the input data can be smaller 
   then \code{maxsize}.
-  The package contains two functions that can be called by users: \code{aresCalc} and \code{aresPlot}
-
+  The package contains three functions that can be called by users: \code{aresCalc} ,\code{aresPlot}, and \code{read.genepop}.
 }
 \details{
 \tabular{ll}{
 Package: \tab ARES\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2006-09-21\cr
+Version: \tab 1.1\cr
+Date: \tab 2006-11-03\cr
 License: \tab GPL 2 or newer\cr
 }
 }
 
 
 \author{
-Emiel van Loon, based on code by Chang Xuan Mao
+Emiel van Loon and Scott Davis, based on code by Chang Xuan Mao
 Maintainer: Emiel van Loon <vanloon@uva.nl>
 }
 

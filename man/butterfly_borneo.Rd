@@ -37,6 +37,10 @@ sample size for robust estimates of allelic richness. However, sample sizes
 differed among landscapes (sample sizes were much lower in disturbed than in 
 pristine forests). A more elaborate description of landscapes and data is 
 available in Cleary et al. (2004, 2006).
+Note that the same data is also available in a genepop-format
+\(butterfly_borneo.dat\). The genepop format can be read into R with the function
+ \code{read.genepop}.
+
 }
 
 \usage{
