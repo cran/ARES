@@ -10,7 +10,7 @@ read.genepop( filename = NULL  )
 }
 
 \usage{
-read.genepop( filename = "butterfly_borneo.dat" )
+read.genepop( filename = "butterfly_borneo" )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,9 +34,9 @@ Raymond M, Rousset F (1995) GENEPOP (version 1.2): population genetics software 
 
 \examples{
 
-# import of genepop file butterfly_borneo.dat
+# import of genepop file butterfly_borneo
 path <- system.file( package = 'ARES' );
-file <- paste( list( path, '/data/butterfly_borneo.dat' ), collapse="" );
+file <- paste( list( path, '/data/butterfly_borneo' ), collapse="" );
 
 butterfly_data <- read.genepop( filename=file );
 

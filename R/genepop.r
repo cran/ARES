@@ -32,7 +32,7 @@
 		endLine <- 0;
 
 		group <- vector("list", length(lociNames));
-		
+
 		if( i == length(popLocations) )
 		{	
 			endLine <- length(lines) - 1; 
@@ -51,14 +51,11 @@
 			id <- location[1];
 			alleleGroup <- location[2];
 
-			#split alleles apart  (tries first with tabs.  if fails, try's with spaces.)
-			alleles <- unlist(strsplit( alleleGroup, "\t", extended=TRUE ));
-			if( length( alleles ) == 1 ) 
-			{
-				alleles <- unlist(strsplit( alleleGroup, " ", extended=TRUE ));
-			}
-			
+			#split alleles apart on whitespace
+			alleles <- unlist(strsplit( alleleGroup, '[[:space:]]+', extended=TRUE ))
 			alleles <- alleles[2:length(alleles)];
+
+			#cat(" ",length(alleles)," => ", alleles ,"\n");	
 
 			if( length(lociNames) == length(alleles) )
 			{
@@ -164,19 +161,13 @@
 			alleleGroup <- location[2];
 			col <- col + 1;
 
-			#split alleles apart  (tries first with tabs.  if fails, try's with spaces.)
-			alleles <- unlist(strsplit( alleleGroup, "\t", extended=TRUE ));
-			if( length( alleles ) == 1 ) 
-			{
-				alleles <- unlist(strsplit( alleleGroup, " ", extended=TRUE ));
-			}
-			
+			#split alleles apart on whitespace
+			alleles <- unlist(strsplit( alleleGroup, '[[:space:]]+', extended=TRUE ))
 			alleles <- alleles[2:length(alleles)];
 
 			#cat(" col( ",col," )\n");
 			for( j in 1:length(alleles) )
 			{
-				
 				#only recognize data that isn't missing
 				if( ( alleles[j] != "0000" ) && ( alleles[j] != "000000" ) )
 				{
