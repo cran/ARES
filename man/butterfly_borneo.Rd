@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{butterfly_borneo}
 \alias{butterfly_borneo}
 \alias{bb100}
