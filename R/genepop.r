@@ -6,7 +6,7 @@
 	genepop <- vector("list", 1);
 
 	# read the file into memory
-	con <- file( description = filename, open = "rt" );
+	con <- file( description = filename, open = "rb" );
 	lines <- readLines( con );
 	close( con );
 	fileLength = length(lines);

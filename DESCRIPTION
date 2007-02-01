@@ -1,7 +1,7 @@
 Package: ARES
 Type: Package
 Title: Allelic richness estimation, with extrapolation beyond the sample size
-Version: 1.2-1
+Version: 1.2-2
 Date: 2007-02-01
 Author: Emiel van Loon and Scott Davis
 Maintainer: Emiel van Loon <vanloon@uva.nl>
@@ -12,4 +12,4 @@ Description: Generates an allelic richness accumulation curve. This curve shows
   curve (mean with 95\% confidence bounds) back. The function aresPlot can be
   used to plot the output from aresCalc.
 License: GPL version 2 or later
-Packaged: Tue Feb 13 11:28:10 2007; scott
+Packaged: Mon Mar 19 13:57:10 2007; scott
