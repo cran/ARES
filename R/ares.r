@@ -54,6 +54,9 @@
 		dmat = sapply(nvec, function(x) rmultinom(1, x, prob));
 		dmat = dmat/matrix(nvec, size, bootsize, byrow = TRUE);
 		Qlist = apply(dmat, 2, vtbino);
+		while (length(Qlist)<bootsize) {
+       Qlist = apply(dmat, 2, vtbino);
+       }
 		estimat = matrix(0, maxsize, bootsize);
 		
 		for (i in 1:bootsize) 
@@ -64,10 +67,10 @@
 		est.mle = cbind(esti[, 2], ci);
 		
 		# glue the moment-based and maximum-likelyhood etsimation together
-		alri.est = rbind(est.mbe[,2:4], est.mle[(size+1):maxsize,1:3]);
+		alri.tot = rbind(est.mbe[,2:4], est.mle[(size+1):maxsize,1:3]);
 	}
 
-	return(alri.est);
+	return(alri.tot);
 
 }
 
