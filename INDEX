@@ -1,0 +1,50 @@
+plot.event				Plot event series
+plot.pollutant			Plot pollutant series
+plot.pacf				Plot partial autocorrelation function of residuals
+plot.qq					Plot Normal QQ of residuals
+print.summary			Print information about the model
+periodogram				Compute and plot spectral analyses of residuals
+explore.temp			Plot smoothed residuals against temperature
+explore.humid			Plot smoothed residuals against humidity
+plot.envelope			Plot a simulated envelope for the residuals
+plot.fitted				Plot fitted values
+plot.residuals			Plot residuals
+plot.continfo			Plot constant information on the response scale
+fit.model				Wrapper for the actual functions for core model estimation
+estimate.risks			Estimate effects of the pollutants for a given core model
+print.risk				Print relative risk array
+plot.cook				Plot Cook's distance for influence analysis
+daily.stats				Compute daily statistics for regular spaced measures
+setup					Set up an environment for the library to work
+gen.holidays			Generate a indicator matrix for holidays or special days
+moving.holidays			Utility function for moving holidays computation
+import.data				Import dataset from several different formats
+export.data				Export dataset to several different formats
+fillup.hours			Fill up missing hours in environmental datasets
+save.plot				Save the active plot into different graph formats
+pgps					Compute the generalized Pearson's statistics
+resdf					Extract residual degrees of freedom
+dispersion				Estimate dispersion parameter
+get.residuals			Extract and transform the residuals
+diagnostics				Shortcut for several diagnostics output
+l						Compute lagged variables
+ma						Compute moving averaged variables
+rr.eval					Relative risk evaluation
+plot.risk				Plot relative risk
+stockplot				Implement a stock type plot
+count.na				Compute some statistics about missing data
+desc.data				List some description of a data frame
+ljungbox.test			Implement first order independence test of Ljung-Box
+test.periodogram		Test if the periodogram is uniform
+test.whitenoise			Test if a vector is white noise
+unload					Unload the library and do some housekeeping
+slpline					Generate a basis for a piecewise linear spline
+sincos					Generate a basis for a sinusoidal curve
+lagvar					Generate a matix with a lagged variable
+pdl						Generate a basis for a polynomial distributed lag model
+get.beta				Extract unrestricted parameters and compute the usual betas
+pdlm					Fit a polynomial distributed lag model
+summary.pdlm			Method for summary output of distributed lag models
+print.summary.pdlm		Method to print summary output of distributed lag models
+print.pdlm				Method to print a brief description of distributed lag models
+plot.pdlm				Method for plot output of distributed lag models parameters
