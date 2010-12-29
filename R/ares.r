@@ -196,7 +196,7 @@ periodogram <- function(x,type="deviance",print=TRUE,rows=20,test=TRUE,new=TRUE,
 	# spectral decomposition of residulas
 	{
 	t <- seq(1:n)
-	sp <- ((sum(res*cos(x*t),na.rm=TRUE))^2+(sum(res*cos(x*t),na.rm=TRUE))^2)/n
+	sp <- ((sum(res*cos(x*t),na.rm=TRUE))^2+(sum(res*sin(x*t),na.rm=TRUE))^2)/n
 	return(sp)
 	}
 
