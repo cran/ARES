@@ -49,9 +49,10 @@ get.beta <- function(coeff,var.coeff,lags,degrees,prefix="beta")
 {
 # parameters
 beta <- NULL    # room for beta
-npar <- length(diag(var.coeff))   # parameters in the model
-fetapar <- npar-degrees    # first eta parameter
-eta <- coeff[(length(coeff)-degrees):(length(coeff))]      # get eta parameters !!! must correct for missing in holidays!!!! some coefficients disappear in the covariance matrix 
+#npar <- length(diag(var.coeff))   # parameters in the model
+#fetapar <- npar-degrees    # first eta parameter
+eta <- coeff[substring(names(coeff),1,4)=="pdl("]  # get the coefficients of the pdl basis
+#eta <- coeff[(length(coeff)-degrees):(length(coeff))]      # get eta parameters !!! must correct for missing in holidays!!!! some coefficients disappear in the covariance matrix 
 names <- names(eta)
 
 for (i in 0:(lags))
@@ -66,9 +67,11 @@ for (i in 0:(lags))
 names(beta) <- paste(prefix,".L",0:lags,sep="")
 # variances
 var.beta <- NULL    # room for beta se
-var.eta <- diag(var.coeff[fetapar:npar,fetapar:npar])
-covar.eta <- var.coeff[fetapar:npar,fetapar:npar]
-low.covar.eta <- lower.tri(covar.eta)*covar.eta
+#var.eta <- diag(var.coeff[fetapar:npar,fetapar:npar])
+#covar.eta <- var.coeff[fetapar:npar,fetapar:npar]
+covar.eta <- var.coeff[names,names]
+var.eta <- diag(covar.eta)
+low.covar.eta <- lower.tri(covar.eta)*covar.eta  # lower.tri() returns TRUE/FALSE
 
 for (i in 0:lags)
     {
@@ -88,22 +91,22 @@ names(var.beta) <- paste(prefix,".L",0:lags,sep="")
 
 # overall estimates
 overall.beta <- sum(beta)
-overall.var <- sum(var.coeff[fetapar:npar,fetapar:npar])
+overall.var <- sum(covar.eta)
 
 return(list(beta=beta,se=sqrt(var.beta),overall.beta=overall.beta,overall.se=sqrt(overall.var)))
 }
 
 
-pdlm <- function(model,var,lags=5,degrees=2)
+pdlm <- function(model,var,lags=5,degrees=2,...)
 # fit a polynomial distributed lags model 
 {
 called <- match.call()
 if (!(typeof(var)=="character"))
 	var <- deparse(substitute(var))
 variate <- eval(parse(text=var))
-form <- as.formula(paste("~.+pdl(",var,",",lags,",",degrees,")",sep=""))
+form <- as.formula(paste("~.+pdl(",var,", ",lags,", ",degrees,")",sep=""))
 formula <- update(model$formula,form)
-pdl.model <- update(model,formula)
+pdl.model <- update(model,formula,...)
 
 coeff <- coef(pdl.model)
 coeff.var <- vcov(pdl.model)

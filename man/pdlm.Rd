@@ -5,13 +5,14 @@
 Fit a constrained polynomial distributed lag model
 }
 \usage{
-pdlm(model, var, lags = 5, degrees = 2)
+pdlm(model, var, lags = 5, degrees = 2, ...)
 }
 \arguments{
   \item{model}{a model fitted by \code{\link{fit.core}}}
   \item{var}{a vector with the exposure variate or a quoted string with its name}
   \item{lags}{an integer indicating the number of lags to estimate the effects. Default is 5}
   \item{degrees}{an integer indicating the number of degrees for the constrained polynomial. Default is 2 for a parabolic shape}
+  \item{...}{arguments passed on to other methods. See \code{\link{family}}}
 }
 \details{
 This function updates \code{model} with the unconstrained distributed lag models using \code{\link{pdl}}. Then, the unconstrained coefficients and their standard errors are extracted using \code{\link{get.beta}}.

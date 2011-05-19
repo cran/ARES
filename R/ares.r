@@ -528,7 +528,7 @@ if (missing(pollutant))
 if(length(pollutant)!=length(labels))
 	stop("Length of pollutant and labels differs")
 if(is.null(unit))
-	unit <- perc.range(pollutant,perc.min=10,perc.max=90)
+	unit <- perc.range(pollutant,min.perc=10,max.perc=90)
 if(!is.null(interaction))
 	if(nlevels(as.factor(eval(parse(text=interaction))))>2)
 		stop("Only 2-level interaction supported")
@@ -575,7 +575,7 @@ npoll <- length(pollutant)
 formula.core <- as.character(model$formula)
 #	if(missing(lag.struc))
 #		stop("Lag structure is missing")
-	if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+	if(any(duplicated(pollutant)))
 		warning("It seems that at least one pollutant is duplicated")
 	lags <- lag.struc$l # lags
 	mavs <- lag.struc$ma # moving averages
@@ -610,11 +610,11 @@ formula.core <- as.character(model$formula)
 			print(lag.formula)
 			}
 		if(!is.null(lags))
-			lags.exp <- paste("l(",pollutant[i],",",lags,")",sep="")
+			lags.exp <- paste("l(",pollutant[i],", ",lags,")",sep="")
 		else
 			lags.exp <- NULL
 		if(!is.null(mavs))
-			mavs.exp <- paste("ma(",pollutant[i],",",ma.base,",",mavs,")",sep="")
+			mavs.exp <- paste("ma(",pollutant[i],", ",ma.base,", ",mavs,")",sep="")
 		else
 			mavs.exp <- NULL
 		exposure <- c(lags.exp,mavs.exp)
@@ -627,9 +627,9 @@ formula.core <- as.character(model$formula)
 				run.model <- gam(formula,family=model.family(overdispersion),data=model$data,control=model$control)
 			else
 				run.model <- glm(formula,family=model.family(overdispersion),data=model$data,control=model$control)
-			last.coeff <- length(coef(run.model))
-			beta <- coef(run.model)[last.coeff]
-			se <- sqrt(diag(vcov(run.model)))[length(diag(vcov(run.model)))]
+			# last.coeff <- length(coef(run.model))
+			beta <- coef(run.model)[exposure[j]]
+			se <- sqrt(diag(vcov(run.model)))[exposure[j]]
 			poll <- eval(parse(text=pollutant[i]))
 			rr <- rr.eval(beta,se,unit[i],confidence.level)
 			if(perc.rr)
@@ -665,7 +665,7 @@ return(estimates)
 # formula.core <- as.character(model$formula)
 # #	if(missing(lag.struc))
 # #		stop("Lag structure is missing")
-# 	if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+# 	if(any(duplicated(pollutant))) # I don't know how long it should be
 # 		warning("It seems that at least one pollutant is duplicated")
 # 	lags <- lag.struc$l # lags
 # 	mavs <- lag.struc$ma # moving averages
@@ -698,11 +698,11 @@ return(estimates)
 # 			print(lag.formula)
 # 			}
 # 		if(!is.null(lags))
-# 			lags.exp <- paste("l(",pollutant[i],",",lags,")",sep="")
+# 			lags.exp <- paste("l(",pollutant[i],", ",lags,")",sep="")
 # 		else
 # 			lags.exp <- NULL
 # 		if(!is.null(mavs))
-# 			mavs.exp <- paste("ma(",pollutant[i],",",ma.base,",",mavs,")",sep="")
+# 			mavs.exp <- paste("ma(",pollutant[i],", ",ma.base,", ",mavs,")",sep="")
 # 		else
 # 			mavs.exp <- NULL
 # 		exposure <- c(lags.exp,mavs.exp)
@@ -715,9 +715,8 @@ return(estimates)
 # 				run.model <- gam(formula,family=model.family(overdispersion),data=model$data,control=model$control)
 # 			else
 # 				run.model <- glm(formula,family=model.family(overdispersion),data=model$data,control=model$control)
-# 			last.coeff <- length(coef(run.model))
-# 			beta <- coef(run.model)[last.coeff]
-# 			se <- sqrt(diag(vcov(run.model)))[length(diag(vcov(run.model)))]
+# 			beta <- coef(run.model)[exposure[j]]
+# 			se <- sqrt(diag(vcov(run.model)))[exposure[j]]
 # 			poll <- eval(parse(text=pollutant[i]))
 # 			rr <- rr.eval(beta,se,unit[i],confidence.level)
 # 			if(perc.rr)
@@ -753,7 +752,7 @@ npoll <- length(pollutant)
 formula.core <- as.character(model$formula)
 #	if(missing(lag.struc))
 #		stop("Lag structure is missing")
-	if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+	if(any(duplicated(pollutant)))
 		warning("It seems that at least one pollutant is duplicated")
 	lags <- lag.struc$l # lags
 	mavs <- lag.struc$ma # moving averages
@@ -792,11 +791,11 @@ formula.core <- as.character(model$formula)
 				print(lag.formula)
 				}
 			if(!is.null(lags))
-				lags.exp <- paste("l(",pollutant[i],",",lags,")",sep="")
+				lags.exp <- paste("l(",pollutant[i],", ",lags,")",sep="")
 			else
 				lags.exp <- NULL
 			if(!is.null(mavs))
-				mavs.exp <- paste("ma(",pollutant[i],",",ma.base,",",mavs,")",sep="")
+				mavs.exp <- paste("ma(",pollutant[i],", ",ma.base,", ",mavs,")",sep="")
 			else
 				mavs.exp <- NULL
 			exposure <- c(lags.exp,mavs.exp)
@@ -808,13 +807,12 @@ formula.core <- as.character(model$formula)
 					run.model <- gam(formula,family=model.family(overdispersion),data=model$data,control=model$control)
 				else
 					run.model <- glm(formula,family=model.family(overdispersion),data=model$data,control=model$control)
-				last.coeff <- length(coef(run.model))
-				beta <- coef(run.model)[last.coeff-2]
-				var <- diag(vcov(run.model))[length(diag(vcov(run.model)))-2]
+				beta <- coef(run.model)[paste(exposure[j],":",interaction,sep="")]
+				var <- diag(vcov(run.model))[paste(exposure[j],":",interaction,sep="")]
 				se <- sqrt(var)
-				beta2 <- coef(run.model)[last.coeff]  # beta of the interaction term
-				var2 <- diag(vcov(run.model))[length(diag(vcov(run.model)))]
-				covar <- vcov(run.model)[length(diag(vcov(run.model))),length(diag(vcov(run.model)))-2]
+				beta2 <- coef(run.model)[exposure[j]]  # beta of the interaction term
+				var2 <- diag(vcov(run.model))[exposure[j]]
+				covar <- vcov(run.model)[exposure[j],paste(exposure[j],":",interaction,sep="")]
 				beta.i <- beta+beta2  # compute total effect
 				se.i <- sqrt(var+var2+2*covar)
 				poll <- eval(parse(text=pollutant[i]))
@@ -854,7 +852,7 @@ estimate.risks.pdlm <- function(model,pollutant,pdlm.struc,labels,confidence.lev
 #if(missing(pdlm.struc))
 #	stop("Polynomial structure is missing")
 npoll <- length(pollutant)
-if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+if(any(duplicated(pollutant)))
 	warning("It seems that at least one pollutant is duplicated")
 lags <- pdlm.struc$l
 if (length(pdlm.struc$d)==1)
@@ -890,7 +888,7 @@ for (i in 1:npoll)
 		cat(i,": ",sep="")
 		print(as.formula(paste(formula.core[2],formula.core[1],formula.core[3],"+pdl(",pollutant[i],",",lags,",",degrees[i],")"),env=.GlobalEnv))
 		}
-	run.model <- pdlm(model,pollutant[i],lags,degrees[i])
+	run.model <- pdlm(model,pollutant[i],lags,degrees[i],family=model.family(overdispersion))
 	if(overall)
 		{
 		beta <- c(run.model$beta$beta,run.model$beta$overall.beta)
@@ -938,7 +936,7 @@ rr10902plot <- NULL
 formula.core <- as.character(model$formula)
 #if(missing(lag.struc))
 #	stop("Lag structure is missing")
-if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+if(any(duplicated(pollutant))) 
 	warning("It seems that at least one of the pollutants is duplicated")
 lags <- lag.struc$l # lags
 mavs <- lag.struc$ma # moving averages
@@ -972,9 +970,9 @@ for (i in 1:npoll)
 		print(lag.formula)
 		}
 	if(!is.null(lags))
-		lags.exp <- paste("l(",pollutant[[i]][1],",",lags,")","+l(",pollutant[[i]][2],",",lags,")",sep="")
+		lags.exp <- paste("l(",pollutant[[i]][1],", ",lags,")","+l(",pollutant[[i]][2],", ",lags,")",sep="")
 	if(!is.null(mavs))
-		mavs.exp <- paste("ma(",pollutant[[i]][1],",",ma.base,",",mavs,")","+ma(",pollutant[[i]][2],",",ma.base,",",mavs,")",sep="")
+		mavs.exp <- paste("ma(",pollutant[[i]][1],", ",ma.base,", ",mavs,")","+ma(",pollutant[[i]][2],", ",ma.base,", ",mavs,")",sep="")
 	exposure <- c(lags.exp,mavs.exp)
 	estimate.temp1 <- NULL
 	estimate.temp2 <- NULL
@@ -985,10 +983,10 @@ for (i in 1:npoll)
 			run.model <- gam(formula,family=model.family(overdispersion),data=model$data,control=model$control)
 		else
 			run.model <- glm(formula,family=model.family(overdispersion),data=model$data,control=model$control)
+		index=unlist(strsplit(exposure[j],"+",fixed=TRUE)) # split dual exposure into vector
 		# first pollutant
-		last.coeff <- length(coef(run.model))
-		beta <- coef(run.model)[last.coeff-1]
-		se <- sqrt(diag(vcov(run.model)))[length(diag(vcov(run.model)))-1]
+		beta <- coef(run.model)[index[1]]
+		se <- sqrt(diag(vcov(run.model)))[index[1]]
 		poll <- eval(parse(text=pollutant[[i]][1]))
 		rr <- rr.eval(beta,se,unit[i],confidence.level)
 		if(perc.rr)
@@ -997,8 +995,8 @@ for (i in 1:npoll)
 		estimate.vector.p1 <- c(rr,pvalue)
 		estimate.temp1 <- rbind(estimate.temp1,t(estimate.vector.p1))
 		# second pollutant
-		beta <- coef(run.model)[last.coeff]
-		se <- sqrt(diag(vcov(run.model)))[length(diag(vcov(run.model)))]
+		beta <- coef(run.model)[index[2]]
+		se <- sqrt(diag(vcov(run.model)))[index[2]]
 		poll <- eval(parse(text=pollutant[[i]][2]))
 		rr <- rr.eval(beta,se,unit[i],confidence.level)
 		if(perc.rr)
@@ -1040,7 +1038,7 @@ return(estimates)
 #if(missing(pdlm.struc))
 #	stop("Polynomial structure is missing")
 #npoll <- length(pollutant)
-#if(any(duplicated(substr(pollutant,1,3)))) # I don't know how long it should be
+#if(any(duplicated(pollutant)))
 #	warning("It seems that at least one pollutant is duplicated")
 #lags <- pdlm.struc$l
 #if (length(pdlm.struc$d)==1)
@@ -1123,7 +1121,7 @@ lab.pairs <- attr(x,"lab.pairs")
 npoll <- length(poll.labels)
 
 cat("\nCore model formula:\n")
-print(model.formula)
+print(model.formula,showEnv=FALSE)
 cat("\nEffect estimates:\n")
 for (i in 1:npoll)
 	{
@@ -1854,7 +1852,7 @@ for(opt in 1:dim(x)[3])
 			cat(i,":",lab.pairs[[i]][1],"in",paste(lab.pairs[[i]][1],lab.pairs[[i]][2],sep="+"),"\n")
 		for (i in 1:npoll)
 			cat(i+npoll,":",lab.pairs[[i]][2],"in",paste(lab.pairs[[i]][1],lab.pairs[[i]][2],sep="+"),"\n")
-		cat("0 :","Exit","\n")
+		cat("0 :","Quit","\n")
 		opt <- as.integer(readline("Select the pollutant to plot: "))
 		if(opt==0)
 			break

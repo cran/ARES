@@ -1,6 +1,6 @@
 Package: ares
-Version: 0.7.1
-Date: 2010-12-29
+Version: 0.7.2
+Date: 2011-05-19
 Author: Washington Junger <wjunger@ims.uerj.br> and Antonio Ponce de
         Leon <ponce@ims.uerj.br>
 Maintainer: Washington Junger <wjunger@ims.uerj.br>
@@ -12,6 +12,6 @@ Description: A toolbox for time series analyses using generalized
         estimation and diagnostics. Polynomial distributed lag models
         are also implemented.
 License: GPL (>= 2)
-Packaged: 2010-12-29 14:37:01 UTC; wjunger
+Packaged: 2011-05-20 00:30:33 UTC; wjunger
 Repository: CRAN
-Date/Publication: 2011-01-03 12:34:05
+Date/Publication: 2011-05-20 12:05:08
